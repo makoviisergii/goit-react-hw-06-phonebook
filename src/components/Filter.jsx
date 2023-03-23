@@ -1,11 +1,8 @@
 import styled from 'styled-components';
-// import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from '../redux/slice';
 
 export const Filter = () => {
-  // const handleChange = event => {
-  //   onChangeInput(event.target.value);
   const searchStr = useSelector(state => state.contactsReducer.searchStr);
 
   const dispatch = useDispatch();
@@ -25,10 +22,6 @@ export const Filter = () => {
   );
 };
 
-// Filter.propTypes = {
-//   earchStr: PropTypes.string,
-//   onChangeInput: PropTypes.func.isRequired,
-// };
 const ContactLabel = styled.label`
   margin-left: 20px;
   display: flex;

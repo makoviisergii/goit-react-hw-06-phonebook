@@ -14,8 +14,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-// const CONTACTS_KEY = 'contacts';
-
 const persistConfig = {
   key: 'root',
   storage,

@@ -25,7 +25,6 @@ export const ContactItem = ({ contact }) => {
 };
 
 ContactItem.propTypes = {
-  // onDeleteUser: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
