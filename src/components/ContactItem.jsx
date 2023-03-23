@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeContact } from '../redux/slice';
 
-export const ContactItem = ({ contact, onDeleteUser }) => {
+export const ContactItem = ({ contact }) => {
   const { id, name, number } = contact;
+  const dispatch = useDispatch();
+
   function handleDelete() {
-    onDeleteUser(id);
+    dispatch(removeContact(id));
   }
 
   return (
@@ -21,7 +25,7 @@ export const ContactItem = ({ contact, onDeleteUser }) => {
 };
 
 ContactItem.propTypes = {
-  onDeleteUser: PropTypes.func.isRequired,
+  // onDeleteUser: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

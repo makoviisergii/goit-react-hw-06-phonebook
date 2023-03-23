@@ -1,39 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
-import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { addContact } from '../redux/slice';
+// import { useState } from 'react';
 
 export const ContactForm = props => {
-  const [id, setId] = useState(nanoid());
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const contacts = useSelector(state => state.contactsReducer.contacts);
 
-  const getNewId = () => {
-    setId(nanoid());
-  };
+  const dispatch = useDispatch();
+  // const [id, setId] = useState(nanoid());
+  // const [name, setName] = useState('');
+  // const [number, setNumber] = useState('');
 
-  const clearStste = () => {
-    setName('');
-    setNumber('');
-  };
+  // const getNewId = () => {
+  //   // setId(nanoid());
+  // };
 
-  const isUserNameIncludesContacts = () => {
-    return props.contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-  };
+  // const isUserNameIncludesContacts = () => {
+  //   return props.contacts.find(
+  //     contact => contact.name.toLowerCase() === name.toLowerCase()
+  //   );
+  // };
 
   const handleUserCreate = evt => {
     evt.preventDefault();
-    getNewId();
+    const { name, number } = evt.target.elements;
+    console.log(evt.target);
 
-    if (isUserNameIncludesContacts() === undefined) {
-      props.onUserCreate({ id, name, number });
-      clearStste();
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.value.toLowerCase()
+      ) === undefined
+    ) {
+      dispatch(
+        addContact({
+          name: name.value,
+          number: number.value,
+        })
+      );
+      evt.target.reset();
+      // props.onUserCreate({ id, name, number });
     } else {
-      alert(`${name} is already in contacts!`);
-      clearStste();
+      alert(`${name.value} is already in contacts!`);
+      evt.target.reset();
     }
   };
 
@@ -42,8 +52,8 @@ export const ContactForm = props => {
       <ContactLabel>
         Name
         <Contactinput
-          onChange={event => setName(event.target.value)}
-          value={name}
+          // onChange={event => setName(event.target.value)}
+          // value={name}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я
@@ -57,8 +67,8 @@ export const ContactForm = props => {
       <ContactLabel>
         Number
         <Contactinput
-          onChange={event => setNumber(event.target.value)}
-          value={number}
+          // onChange={event => setNumber(event.target.value)}
+          // value={number}
           type="tel"
           name="number"
           pattern="\+?\d{(1, 4)}?[-.\s]?\(?\d{(1, 3)}
